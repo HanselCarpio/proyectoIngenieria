@@ -1,5 +1,5 @@
-//import { checkRole } from './../middlewares/role';
-//import { checkJwt } from './../middlewares/jwt';
+import { checkRole } from './../middlewares/role';
+import { checkJwt } from './../middlewares/jwt';
 import { UserController } from './../controller/UserController';
 import { Router } from 'express';
 
@@ -9,15 +9,15 @@ const router = Router();
 router.get('/', UserController.getAll);
 
 // Get one user
-//router.get('/:id', [checkJwt, checkRole(['admin'])], UserController.getById);
-router.get('/:id', UserController.getById);
+router.get('/:id', [checkJwt, checkRole(['admin'])], UserController.getById);
+//router.get('/:id', UserController.getById);
 // Create a new user
-//router.post('/', [checkJwt, checkRole(['admin'])], UserController.new);
-router.post('/', UserController.new);
+router.post('/', [checkJwt, checkRole(['admin'])], UserController.new);
+//router.post('/', UserController.new);
 // Edit user
-//router.patch('/:id', [checkJwt, checkRole(['admin'])], UserController.edit);
-router.patch('/:id', UserController.edit);
+router.patch('/:id', [checkJwt, checkRole(['admin'])], UserController.edit);
+//router.patch('/:id', UserController.edit);
 // Delete
-//router.delete('/:id', [checkJwt, checkRole(['admin'])], UserController.delete);
-router.delete('/:id', UserController.delete);
+router.delete('/:id', [checkJwt, checkRole(['admin'])], UserController.delete);
+//router.delete('/:id', UserController.delete);
 export default router;

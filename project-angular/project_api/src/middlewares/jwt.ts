@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import * as jwt from 'jsonwebtoken';
 import config from '../config/config';
 
-/*export const checkJwt = (req: Request, res: Response, next: NextFunction) => {
+export const checkJwt = (req: Request, res: Response, next: NextFunction) => {
   const token = <string>req.params['auth'];
   let jwtPayload;
 
@@ -19,4 +19,4 @@ import config from '../config/config';
   res.setHeader('token', newToken);
   // Call next
   next();
-};*/
+};

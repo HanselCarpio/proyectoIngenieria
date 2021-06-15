@@ -17,11 +17,8 @@ export class AuthService {
 private loggedIn = new BehaviorSubject<boolean>(false);
 
   /*private user = new BehaviorSubject<UserResponse>(null);
-
+*/
   constructor(private http: HttpClient, private router: Router) {
-    this.checkToken();
-  }*/
-  constructor(private http: HttpClient){
     this.checkToken();
   }
   /*get user$(): Observable<UserResponse> {
@@ -59,10 +56,10 @@ private loggedIn = new BehaviorSubject<boolean>(false);
   }*/
 
   logout(): void {
-    localStorage.removeItem('user');
+    localStorage.removeItem('token');
     this.loggedIn.next(false);
-    /*this.user.next(null);
-    this.router.navigate(['/login']);*/
+    /*this.user.next(null);*/
+    this.router.navigate(['/login']);
   }
 
   
