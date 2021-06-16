@@ -9,7 +9,8 @@ import { FooterComponent } from './shared/components/footer/footer.component';
 import { MaterialModule } from './material.module';
 import { SidebarModule } from './shared/components/sidebar/sidebar.module';
 //
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AdminInterceptor } from './shared/interceptors/admin-interceptor';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,9 @@ import { HttpClientModule } from '@angular/common/http';
     //
     HttpClientModule
   ],
-  providers: [],
+  providers: [
+    {provide: HTTP_INTERCEPTORS, useClass: AdminInterceptor, multi: true}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
