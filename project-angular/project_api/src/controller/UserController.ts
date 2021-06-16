@@ -9,7 +9,7 @@ export class UserController {
     let users;
 
     try {
-      users = await userRepository.find({ select: ['id', 'username', 'password', 'role'] });
+      users = await userRepository.find({ select: ['id', 'username', 'role'] });
     } catch (e) {
       res.status(404).json({ message: 'Somenthing goes wrong!' });
     }

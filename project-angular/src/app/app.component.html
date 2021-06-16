@@ -1,6 +1,5 @@
 <mat-sidenav-container>
-  <!--<mat-sidenav #sidenav mode="side" [(opened)]="opened">-->
-  <mat-sidenav #sidenav mode="side">
+  <mat-sidenav #sidenav mode="side" [(opened)]="opened">
     <mat-toolbar color="primary">Menu</mat-toolbar>
     <app-sidebar>
       hola
@@ -8,7 +7,6 @@
   </mat-sidenav>
   <mat-sidenav-content>
     <app-header (toggleSidenav)="sidenav.toggle()"></app-header>
-    
     <router-outlet>
 
     </router-outlet>

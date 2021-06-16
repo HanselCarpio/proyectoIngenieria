@@ -16,11 +16,16 @@ const helper = new JwtHelperService();
 export class AuthService {
 private loggedIn = new BehaviorSubject<boolean>(false);
 
-  /*private user = new BehaviorSubject<UserResponse>(null);
-*/
+private role = new BehaviorSubject<Roles>("SUSCRIPTOR" || "ADMIN");
+
   constructor(private http: HttpClient, private router: Router) {
     this.checkToken();
   }
+
+  get isAdmin(): Observable<string>{
+    return this.role.asObservable();
+  }
+
   /*get user$(): Observable<UserResponse> {
     return this.user.asObservable();
   }
@@ -36,8 +41,9 @@ private loggedIn = new BehaviorSubject<boolean>(false);
     return this.http.post<UserResponse>(`${environment.project_api_URL}/auth/login`, authData)
     .pipe(
       map((res: UserResponse) => {
-        this.saveToken(res.token);
+        this.saveLocalStorage(res);
         this.loggedIn.next(true);
+        this.role.next(res.role);
         return res;
       }),
       catchError((err) => this.handlerError(err)))
@@ -56,29 +62,39 @@ private loggedIn = new BehaviorSubject<boolean>(false);
   }*/
 
   logout(): void {
-    localStorage.removeItem('token');
+    localStorage.removeItem('user');
     this.loggedIn.next(false);
     /*this.user.next(null);*/
+    this.role.next(null!);
     this.router.navigate(['/login']);
   }
 
   
-  private saveToken(token:string):void{
+  /*private saveToken(token:string):void{
     localStorage.setItem('token', token);
-  }
+  }*/
 
 
   private checkToken():void{
     //const userToken = JSON.parse(localStorage.getItem('user')!);
-    const userToken = localStorage.getItem('token')!;//error, como arreglo eso?
-    const isExpired = helper.isTokenExpired(userToken);
-    console.log('isExpired ->', isExpired);
-    //set userisLogged = isExpired
-    if (isExpired) {
+    const user = JSON.parse(localStorage.getItem('user')!);
+    if (user) {
+      const isExpired = helper.isTokenExpired(user.token);
+
+      if (isExpired) {
         this.logout();
       } else {
         this.loggedIn.next(true);
+        this.role.next(user.role);
       }
+    }
+    // console.log('isExpired ->', isExpired);
+    //set userisLogged = isExpired
+    /*if (isExpired) {
+        this.logout();
+      } else {
+        this.loggedIn.next(true);
+      }*/
     }
   
 
@@ -94,12 +110,12 @@ private loggedIn = new BehaviorSubject<boolean>(false);
         this.user.next(user);
       }
     }
-  }
+  }*/
 
   private saveLocalStorage(user: UserResponse): void {
-    const { userId, message, ...rest } = user;
+     const { userId, message, ...rest } = user;
     localStorage.setItem('user', JSON.stringify(rest));
-  }*/
+  }
 
   private handlerError(err: { message: any; }): Observable<never> {
     let errorMessage = 'An errror occured retrienving data';
