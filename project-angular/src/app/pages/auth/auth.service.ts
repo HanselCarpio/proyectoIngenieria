@@ -15,8 +15,9 @@ const helper = new JwtHelperService();
 })
 export class AuthService {
 private loggedIn = new BehaviorSubject<boolean>(false);
-
 private role = new BehaviorSubject<Roles>("SUSCRIPTOR" || "ADMIN");
+private userToken = new BehaviorSubject<string>(null!);
+
 
   constructor(private http: HttpClient, private router: Router) {
     this.checkToken();
@@ -26,6 +27,9 @@ private role = new BehaviorSubject<Roles>("SUSCRIPTOR" || "ADMIN");
     return this.role.asObservable();
   }
 
+  get userTokenValue(): string{
+    return this.userToken.getValue();
+  }
   /*get user$(): Observable<UserResponse> {
     return this.user.asObservable();
   }
@@ -37,14 +41,16 @@ private role = new BehaviorSubject<Roles>("SUSCRIPTOR" || "ADMIN");
   get islogged(): Observable<boolean>{
     return this.loggedIn.asObservable();
   }
+
   login(authData:User):Observable<UserResponse | void>{
     return this.http.post<UserResponse>(`${environment.project_api_URL}/auth/login`, authData)
     .pipe(
-      map((res: UserResponse) => {
-        this.saveLocalStorage(res);
+      map((user: UserResponse) => {
+        this.saveLocalStorage(user);
         this.loggedIn.next(true);
-        this.role.next(res.role);
-        return res;
+        this.role.next(user.role);
+        this.userToken.next(user.token);
+        return user;
       }),
       catchError((err) => this.handlerError(err)))
     }
@@ -64,7 +70,7 @@ private role = new BehaviorSubject<Roles>("SUSCRIPTOR" || "ADMIN");
   logout(): void {
     localStorage.removeItem('user');
     this.loggedIn.next(false);
-    /*this.user.next(null);*/
+    this.userToken.next(null!);
     this.role.next(null!);
     this.router.navigate(['/login']);
   }
@@ -86,6 +92,7 @@ private role = new BehaviorSubject<Roles>("SUSCRIPTOR" || "ADMIN");
       } else {
         this.loggedIn.next(true);
         this.role.next(user.role);
+        this.userToken.next(user.token);
       }
     }
     // console.log('isExpired ->', isExpired);
