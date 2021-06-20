@@ -14,42 +14,47 @@ const helper = new JwtHelperService();
   providedIn: 'root',
 })
 export class AuthService {
-private loggedIn = new BehaviorSubject<boolean>(false);
-private role = new BehaviorSubject<Roles>("SUSCRIPTOR" || "ADMIN");
-private userToken = new BehaviorSubject<string>(null!);
+// private loggedIn = new BehaviorSubject<boolean>(false);
+// private role = new BehaviorSubject<Roles>("SUSCRIPTOR" || "ADMIN");
+// private userToken = new BehaviorSubject<string>(null!);
 
-
+  private user = new BehaviorSubject<UserResponse>(null!);
+  
   constructor(private http: HttpClient, private router: Router) {
     this.checkToken();
   }
 
-  get isAdmin(): Observable<string>{
+  /*get isAdmin(): Observable<string>{
     return this.role.asObservable();
   }
 
   get userTokenValue(): string{
     return this.userToken.getValue();
   }
-  /*get user$(): Observable<UserResponse> {
+  
+  get islogged(): Observable<boolean>{
+    return this.loggedIn.asObservable();
+  }*/
+  get user$(): Observable<UserResponse> {
     return this.user.asObservable();
+    
   }
 
   get userValue(): UserResponse {
     return this.user.getValue();
-  }*/
-
-  get islogged(): Observable<boolean>{
-    return this.loggedIn.asObservable();
   }
+
+  
 
   login(authData:User):Observable<UserResponse | void>{
     return this.http.post<UserResponse>(`${environment.project_api_URL}/auth/login`, authData)
     .pipe(
       map((user: UserResponse) => {
         this.saveLocalStorage(user);
-        this.loggedIn.next(true);
-        this.role.next(user.role);
-        this.userToken.next(user.token);
+        // this.loggedIn.next(true);
+        // this.role.next(user.role);
+        // this.userToken.next(user.token);
+        this.user.next(user);
         return user;
       }),
       catchError((err) => this.handlerError(err)))
@@ -69,9 +74,10 @@ private userToken = new BehaviorSubject<string>(null!);
 
   logout(): void {
     localStorage.removeItem('user');
-    this.loggedIn.next(false);
-    this.userToken.next(null!);
-    this.role.next(null!);
+    // this.loggedIn.next(false);
+    // this.userToken.next(null!);
+    // this.role.next(null!);
+    this.user.next(null!);
     this.router.navigate(['/login']);
   }
 
@@ -90,9 +96,10 @@ private userToken = new BehaviorSubject<string>(null!);
       if (isExpired) {
         this.logout();
       } else {
-        this.loggedIn.next(true);
-        this.role.next(user.role);
-        this.userToken.next(user.token);
+        // this.loggedIn.next(true);
+        // this.role.next(user.role);
+        // this.userToken.next(user.token);
+        this.user.next(user);
       }
     }
     // console.log('isExpired ->', isExpired);

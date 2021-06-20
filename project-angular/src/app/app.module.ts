@@ -11,6 +11,9 @@ import { SidebarModule } from './shared/components/sidebar/sidebar.module';
 //
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AdminInterceptor } from './shared/interceptors/admin-interceptor';
+import { MatDialogModule } from '@angular/material/dialog';
+import { ReactiveFormsModule } from '@angular/forms';
+
 
 @NgModule({
   declarations: [
@@ -25,7 +28,9 @@ import { AdminInterceptor } from './shared/interceptors/admin-interceptor';
     MaterialModule,
     SidebarModule,
     //
-    HttpClientModule
+    HttpClientModule,
+    MatDialogModule,
+    ReactiveFormsModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: AdminInterceptor, multi: true}

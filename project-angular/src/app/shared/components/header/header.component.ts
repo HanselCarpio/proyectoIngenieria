@@ -1,4 +1,4 @@
-//import { UserResponse } from './../../models/user.interface';
+import { UserResponse } from './../../models/user.interface';
 import {
   Component,
   OnInit,
@@ -19,9 +19,9 @@ import { takeUntil } from 'rxjs/operators';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit, OnDestroy {
-  isAdmin = null;
+  isAdmin = "";
   isLogged = false;
-  //isAdmin = false;
+  //isAdmin = null;
   //private subscription: Subscription = new Subscription;
 
   private destroy$ = new Subject<any>();
@@ -30,19 +30,19 @@ export class HeaderComponent implements OnInit, OnDestroy {
   constructor(private authSvc: AuthService) {}
 
   ngOnInit(): void {
-    this.authSvc.islogged.pipe(
+     /*this.authSvc.islogged.pipe(
       takeUntil(this.destroy$)
     ).subscribe((res) => (this.isLogged = res));
 
     this.authSvc.isAdmin.pipe(
       takeUntil(this.destroy$)
-    ).subscribe((res:any) => (this.isAdmin = res));
-    /*this.authSvc.user$
+    ).subscribe((res:any) => (this.isAdmin = res));*/
+   this.authSvc.user$
       .pipe(takeUntil(this.destroy$))
       .subscribe((user: UserResponse) => {
         this.isLogged = true;
-        this.isAdmin = user?.role;
-      });*/
+        this.isAdmin = (user?.role);
+      });
   }
   
   onToggleSidenav(): void {
