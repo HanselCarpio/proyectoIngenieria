@@ -3,6 +3,8 @@ import { Request, Response } from 'express';
 import { Users } from '../entity/Users';
 import { validate } from 'class-validator';
 
+
+
 export class UserController {
   static getAll = async (req: Request, res: Response) => {
     const userRepository = getRepository(Users);
@@ -34,7 +36,7 @@ export class UserController {
 
   static new = async (req: Request, res: Response) => {
     const { username, password, role } = req.body;
-    const user = new Users();
+    const user = new Users;
 
     user.username = username;
     user.password = password;

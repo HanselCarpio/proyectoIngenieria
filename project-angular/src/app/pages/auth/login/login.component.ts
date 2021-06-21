@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     private authSvc: AuthService,
     private router: Router,
     public loginForm: BaseFormUser,
-    private fb: FormBuilder
+    // private fb: FormBuilder
   ) {}
 
   ngOnInit(): void {

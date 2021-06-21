@@ -1,5 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Unique, Column } from 'typeorm';
-import { MinLength, IsNotEmpty, IsEmail } from 'class-validator';
+import { Entity, PrimaryGeneratedColumn, Unique, Column} from 'typeorm';
+import { MinLength, IsNotEmpty, IsEmail, MaxLength} from 'class-validator';
 import * as bcrypt from 'bcryptjs';
 
 @Entity()
@@ -10,18 +10,26 @@ export class Users {
 
   @Column()
   @MinLength(6)
+  @MaxLength(50)
   @IsEmail()
   @IsNotEmpty()
   username: string;
 
   @Column()
   @MinLength(6)
+  @MaxLength(100)
   @IsNotEmpty()
   password: string;
 
   @Column()
   @IsNotEmpty()
+  @MaxLength(10)
   role: string;
+
+  // @Column() 
+  // @IsOptional()
+  // @IsNotEmpty()
+  // resetToken?: string; 
 
   hashPassword(): void {
     const salt = bcrypt.genSaltSync(10);
