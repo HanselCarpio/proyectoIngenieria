@@ -1,18 +1,100 @@
 <h2 mat-dialog-title>{{data?.title}}</h2>
 
-
 <mat-dialog-content>
     <div class="modal-form">
       <form [formGroup]="userForm.baseForm">
+      <!-- formulario -->
         <mat-form-field class="full-width-input">
-          <input formControlName="username"
-            matInput pplaceholder="Username"
+          <input formControlName="name"
+            matInput placeholder="Name"
             required
           />
-          <div mat-error *ngIf="checkField('username')">
+          <div mat-error *ngIf="checkField('name')">
             {{ userForm.errorMessage }}
           </div>
         </mat-form-field>
+
+        <mat-form-field class="full-width-input">
+          <input formControlName="lastname"
+            matInput placeholder="Lastname"
+            required
+          />
+          <div mat-error *ngIf="checkField('lastname')">
+            {{ userForm.errorMessage }}
+          </div>
+        </mat-form-field>
+
+        <mat-form-field class="full-width-input">
+          <mat-label> Select </mat-label>
+          <mat-select formControlName="role">
+            <mat-option value="suscriptor">Suscriptor</mat-option>
+            <mat-option value="admin">Admin</mat-option>
+          </mat-select>
+          <div mat-error *ngIf="checkField('role')">
+            {{ userForm.errorMessage }}
+          </div>
+        </mat-form-field>
+
+        <mat-form-field class="full-width-input">
+          <input formControlName="gender"
+            matInput placeholder="Gender"
+            required
+          />
+          <div mat-error *ngIf="checkField('gender')">
+            {{ userForm.errorMessage }}
+          </div>
+        </mat-form-field>
+
+        <mat-form-field class="full-width-input">
+          <input formControlName="cedula"
+            matInput placeholder="Cedula"
+            required
+          />
+          <div mat-error *ngIf="checkField('cedula')">
+            {{ userForm.errorMessage }}
+          </div>
+        </mat-form-field>
+
+        <mat-form-field class="full-width-input">
+          <input formControlName="birthday"
+            matInput placeholder="Birthday"
+            required
+          />
+          <div mat-error *ngIf="checkField('birthday')">
+            {{ userForm.errorMessage }}
+          </div>
+        </mat-form-field>
+
+        <mat-form-field class="full-width-input">
+          <input formControlName="idDepto"
+            matInput placeholder="IdDepto"
+            required
+          />
+          <div mat-error *ngIf="checkField('idDepto')">
+            {{ userForm.errorMessage }}
+          </div>
+        </mat-form-field>
+
+        <mat-form-field class="full-width-input">
+          <input formControlName="correo"
+            matInput placeholder="Correo"
+            required
+          />
+          <div mat-error *ngIf="checkField('correo')">
+            {{ userForm.errorMessage }}
+          </div>
+        </mat-form-field>
+
+        <mat-form-field class="full-width-input">
+          <input formControlName="cel"
+            matInput placeholder="Celular"
+            required
+          />
+          <div mat-error *ngIf="checkField('cel')">
+            {{ userForm.errorMessage }}
+          </div>
+        </mat-form-field>
+
         <mat-form-field class="full-width-input" *ngIf="showPasswordField">
           <input formControlName="password"
             [type]="hide ? 'password' : 'text'"
@@ -26,16 +108,7 @@
             {{ userForm.errorMessage }}
           </mat-error>
         </mat-form-field>
-        <mat-form-field class="full-width-input">
-          <mat-label> Select </mat-label>
-          <mat-select formControlName="role">
-            <mat-option value="suscriptor">Suscriptor</mat-option>
-            <mat-option value="admin">Admin</mat-option>
-          </mat-select>
-          <div mat-error *ngIf="checkField('role')">
-            {{ userForm.errorMessage }}
-          </div>
-        </mat-form-field>
+        
       </form>
     </div>
 </mat-dialog-content>

@@ -6,17 +6,14 @@
           <mat-form-field class="full-width-input">
             <input
               text="text"
-              formControlName="username"
+              formControlName="correo"
               matInput
-              placeholder="Username"
+              placeholder="Correo"
               required
             />
-            <mat-error *ngIf="checkField('username')">
+            <mat-error *ngIf="checkField('correo')">
               {{ loginForm.errorMessage }}
             </mat-error>
-            <!--<mat-error *ngIf="checkField('username')">
-              {{ loginForm.errorMessage }}
-            </mat-error>-->
           </mat-form-field>
           <mat-form-field class="full-width-input separator">
             <input

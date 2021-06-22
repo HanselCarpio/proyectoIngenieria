@@ -42,7 +42,7 @@ export class UsersService {
   }
 
   handlerError(error: { message: any; }): Observable<never> {
-    let errorMessage = 'Error unknown';
+    let errorMessage = 'Error desconocido';
     if (error) {
       errorMessage = `Error ${error.message}`;
     }

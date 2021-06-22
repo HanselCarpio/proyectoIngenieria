@@ -7,30 +7,34 @@ import { validate } from 'class-validator';
 
 class AuthController {
   static login = async (req: Request, res: Response) => {
-    const { username } = req.body;
+    const { correo } = req.body;
     const { password } = req.body;
 
-    if (!(username && password)) {
-      return res.status(400).json({ message: ' Username & Password are required!' });
+    if (!(correo && password)) {
+      return res.status(400).json({ message: ' Correo & contraaseña son requeridos!' });
     }
 
     const userRepository = getRepository(Users);
     let user: Users;
 
     try {
-      user = await userRepository.findOneOrFail({ where: { username }});
+      user = await userRepository.findOneOrFail({ where: { correo }});
       //user = await userRepository.findOneOrFail({ where: { password } });
     } catch (e) {
-      return res.status(400).json({ message: ' Username or password incorecct!' });
+      return res.status(400).json({ message: 'Correo o contraseña incorrectos, Error!' });
     }
     // Check password
     if (!user.checkPassword(password)) {
-      return res.status(400).json({ message: 'Username or Password are incorrect!' });
+      return res.status(400).json({ message: 'Correo o contraseña incorrectos!' });
     }
 
-    const token = jwt.sign({ userId: user.id, username: user.username }, config.jwtSecret, { expiresIn: '1h' });
+    const token = jwt.sign({ 
+      userId: user.idUser, name: user.name, lastname: user.lastname,
+      cedula: user.cedula, correo: user.correo
+    }, config.jwtSecret, { expiresIn: '1h' });
 
-    res.json({ message: 'OK', token, userId: user.id, role: user.role });
+
+    res.json({ message: 'OK', token, userId: user.idUser, name: user.name, lastname: user.lastname, role: user.role });
   };
 
   static changePassword = async (req: Request, res: Response) => {
@@ -38,7 +42,7 @@ class AuthController {
     const { oldPassword, newPassword } = req.body;
 
     if (!(oldPassword && newPassword)) {
-      res.status(400).json({ message: 'Old password & new password are required' });
+      res.status(400).json({ message: 'Contraseña antigua & contraseña nueva requeridas' });
     }
 
     const userRepository = getRepository(Users);
@@ -47,11 +51,11 @@ class AuthController {
     try {
       user = await userRepository.findOneOrFail(userId);
     } catch (e) {
-      res.status(400).json({ message: 'Somenthing goes wrong!' });
+      res.status(400).json({ message: 'Oopps!, Algo salio mal!' });
     }
 
     if (!user.checkPassword(oldPassword)) {
-      return res.status(401).json({ message: 'Check your old Password' });
+      return res.status(401).json({ message: 'revisa tu contraseña vieja' });
     }
 
     user.password = newPassword;
@@ -66,7 +70,7 @@ class AuthController {
     user.hashPassword();
     userRepository.save(user);
 
-    res.json({ message: 'Password change!' });
+    res.json({ message: 'Contraseña cambiada!' });
   };
 
   // static forgotPassword = async(req: Request, res:Response)=>{

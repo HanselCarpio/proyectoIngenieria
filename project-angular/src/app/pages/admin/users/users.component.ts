@@ -14,7 +14,7 @@ import { UsersService } from '../services/users.service';
 })
 export class UsersComponent implements OnInit, AfterViewInit, OnDestroy {
 
-  displayedColumns: string[] = ['id', 'role', 'username', 'actions'];
+  displayedColumns: string[] = ['idUser', 'name', 'lastname', 'role', 'gender', 'cedula', 'birthday', 'idDepto', 'correo', 'cel', 'actions'];
   dataSource = new MatTableDataSource();
 
   private destroy$= new Subject<any>();
@@ -44,9 +44,9 @@ export class UsersComponent implements OnInit, AfterViewInit, OnDestroy {
         .subscribe((res) => {
           window.alert(res);
           // Update result after deleting the user.
-          // this.userSvc.getAllUsers().subscribe((users) => {
-          //   this.dataSource.data = users;
-          // });
+          this.userSvc.getAllUsers().subscribe((users) => {
+            this.dataSource.data = users;
+          });
         });
     }
   }
@@ -65,8 +65,8 @@ export class UsersComponent implements OnInit, AfterViewInit, OnDestroy {
   onOpenModal(user: any): void {
     console.log('User ->', user);
     this.dialog.open(ModalComponent,{
-      height: '400px',
-      width: '600px',
+      height: '600px',
+      width: '800px',
       hasBackdrop: false,
       data: {title: 'New user', user},
     });

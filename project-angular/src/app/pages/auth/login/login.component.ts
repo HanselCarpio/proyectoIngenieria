@@ -27,8 +27,22 @@ export class LoginComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    this.loginForm.baseForm.get('name')?.setValidators(null);
+    this.loginForm.baseForm.get('name')?.updateValueAndValidity();
+    this.loginForm.baseForm.get('lastname')?.setValidators(null);
+    this.loginForm.baseForm.get('lastname')?.updateValueAndValidity();
     this.loginForm.baseForm.get('role')?.setValidators(null);
     this.loginForm.baseForm.get('role')?.updateValueAndValidity();
+    this.loginForm.baseForm.get('gender')?.setValidators(null);
+    this.loginForm.baseForm.get('gender')?.updateValueAndValidity();
+    this.loginForm.baseForm.get('cedula')?.setValidators(null);
+    this.loginForm.baseForm.get('cedula')?.updateValueAndValidity();
+    this.loginForm.baseForm.get('birthday')?.setValidators(null);
+    this.loginForm.baseForm.get('birthday')?.updateValueAndValidity();
+    this.loginForm.baseForm.get('idDepto')?.setValidators(null);
+    this.loginForm.baseForm.get('idDepto')?.updateValueAndValidity();
+    this.loginForm.baseForm.get('cel')?.setValidators(null);
+    this.loginForm.baseForm.get('cel')?.updateValueAndValidity();
   }
 
   ngOnDestroy(): void {

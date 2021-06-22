@@ -24,7 +24,7 @@ export class ModalComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    if (this.data?.user.hasOwnProperty('id')) {
+    if (this.data?.user.hasOwnProperty('idUser')) {
       this.actionTODO = Action.EDIT;
       this.showPasswordField = false;
       this.userForm.baseForm.get('password')?.setValidators(null);
@@ -37,11 +37,12 @@ export class ModalComponent implements OnInit {
   onSave(): void {
     const formValue = this.userForm.baseForm.value;
     if (this.actionTODO === Action.NEW) {
+      console.log(formValue);
       this.userSvc.newUser(formValue).subscribe((res) => {
         console.log('New ', res);
       });
     } else {
-      const userId = this.data?.user?.id;
+      const userId = this.data?.user?.idUser;
       this.userSvc.updateUser(userId, formValue).subscribe((res) => {
         console.log('Update', res);
       });
@@ -54,8 +55,15 @@ export class ModalComponent implements OnInit {
 
   private pathFormData(): void {
     this.userForm.baseForm.patchValue({
-      username: this.data?.user?.username,
+      name: this.data?.user?.name,
+      lastname: this.data?.user?.lastname,
       role: this.data?.user?.role,
+      gender: this.data?.user?.gender,
+      cedula: this.data?.user?.cedula,
+      birthday: this.data?.user?.birthday,
+      idDepto: this.data?.user?.idDepto,
+      correo: this.data?.user?.correo,
+      cel: this.data?.user?.cel
     });
   }
 

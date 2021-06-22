@@ -10,12 +10,16 @@ export class BaseFormUser {
   constructor(private fb: FormBuilder) {}
 
   baseForm = this.fb.group({
-    username: [
-      '',
-      [Validators.required, Validators.pattern(this.isValidEmail)],
-    ],
-    password: ['', [Validators.required, Validators.minLength(5)]],
+    name: ['', [Validators.required]],
+    lastname: ['', [Validators.required]],
     role: ['', [Validators.required]],
+    gender: ['', [Validators.required]],
+    cedula: ['', [Validators.required]],
+    birthday: ['', [Validators.required]],
+    idDepto: ['', [Validators.required]],
+    correo: ['',[Validators.required, Validators.pattern(this.isValidEmail)]],
+    cel: ['', [Validators.required]],
+    password: ['', [Validators.required, Validators.minLength(5)]],
   });
 
   isValidField(field: string): boolean{

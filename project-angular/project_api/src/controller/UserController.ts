@@ -11,36 +11,45 @@ export class UserController {
     let users;
 
     try {
-      users = await userRepository.find({ select: ['id', 'username', 'role'] });
+      users = await userRepository.find({ 
+        select: ['idUser', 'name', 'lastname', 'role', 'gender', 'cedula', 'birthday', 'idDepto', 'correo', 'cel', 'password'] 
+      });
     } catch (e) {
-      res.status(404).json({ message: 'Somenthing goes wrong!' });
+      res.status(404).json({ message: 'Algo salio mal!' });
     }
 
     if (users.length > 0) {
       res.send(users);
     } else {
-      res.status(404).json({ message: 'Not result' });
+      res.status(404).json({ message: 'sin resultados' });
     }
   };
 
   static getById = async (req: Request, res: Response) => {
-    const { id } = req.params;
+    const { idUser } = req.params;
     const userRepository = getRepository(Users);
     try {
-      const user = await userRepository.findOneOrFail(id);
+      const user = await userRepository.findOneOrFail(idUser);
       res.send(user);
     } catch (e) {
-      res.status(404).json({ message: 'Not result' });
+      res.status(404).json({ message: 'Sin resultado' });
     }
   };
 
   static new = async (req: Request, res: Response) => {
-    const { username, password, role } = req.body;
+    const { name, lastname, role, gender, cedula, birthday, idDepto, correo, cel, password} = req.body;
     const user = new Users;
 
-    user.username = username;
-    user.password = password;
+    user.name = name;
+    user.lastname = lastname;
     user.role = role;
+    user.gender = gender;
+    user.cedula = cedula;
+    user.birthday = birthday;
+    user.idDepto = idDepto;
+    user.correo = correo;
+    user.cel = cel;
+    user.password = password;
 
     // Validate
     const validationOpt = { validationError: { target: false, value: false } };
@@ -56,25 +65,33 @@ export class UserController {
       user.hashPassword();
       await userRepository.save(user);
     } catch (e) {
-      return res.status(409).json({ message: 'Username already exist' });
+      return res.status(409).json({ message: 'Correo existente' });
     }
     // All ok
-    res.send('User created');
+    res.send('Usuario creado');
   };
 
   static edit = async (req: Request, res: Response) => {
     let user;
     const { id } = req.params;
-    const { username, role } = req.body;
+    const { name, lastname, role, gender, cedula, birthday, idDepto, correo, cel, password } = req.body;
 
     const userRepository = getRepository(Users);
     // Try get user
     try {
       user = await userRepository.findOneOrFail(id);
-      user.username = username;
+      user.name = name;
+      user.lastname = lastname;
       user.role = role;
+      user.gender = gender;
+      user.cedula = cedula;
+      user.birthday = birthday;
+      user.idDepto = idDepto;
+      user.correo = correo;
+      user.cel = cel;
+      user.password = password;
     } catch (e) {
-      return res.status(404).json({ message: 'User not found' });
+      return res.status(404).json({ message: 'Usuario no encontrado' });
     }
     const validationOpt = { validationError: { target: false, value: false } };
     const errors = await validate(user, validationOpt);
@@ -87,26 +104,26 @@ export class UserController {
     try {
       await userRepository.save(user);
     } catch (e) {
-      return res.status(409).json({ message: 'Username already in use' });
+      return res.status(409).json({ message: 'Correo actualmente en uso' });
     }
 
-    res.status(201).json({ message: 'User update' });
+    res.status(201).json({ message: 'Usuario actualizado' });
   };
 
   static delete = async (req: Request, res: Response) => {
-    const { id } = req.params;
+    const { idUser } = req.params;
     const userRepository = getRepository(Users);
     let user: Users;
 
     try {
-      user = await userRepository.findOneOrFail(id);
+      user = await userRepository.findOneOrFail(idUser);
     } catch (e) {
-      return res.status(404).json({ message: 'User not found' });
+      return res.status(404).json({ message: 'Usuario no encontrado' });
     }
 
     // Remove user
-    userRepository.delete(id);
-    res.status(201).json({ message: ' User deleted' });
+    userRepository.delete(idUser);
+    res.status(201).json({ message: ' Usuario eliminado' });
   };
 }
 
