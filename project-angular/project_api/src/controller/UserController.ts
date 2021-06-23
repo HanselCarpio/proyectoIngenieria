@@ -74,7 +74,7 @@ export class UserController {
   static edit = async (req: Request, res: Response) => {
     let user;
     const { id } = req.params;
-    const { name, lastname, role, gender, cedula, birthday, idDepto, correo, cel, password } = req.body;
+    const { name, lastname, role, gender, cedula, birthday, idDepto, correo, cel } = req.body;
 
     const userRepository = getRepository(Users);
     // Try get user
@@ -89,7 +89,6 @@ export class UserController {
       user.idDepto = idDepto;
       user.correo = correo;
       user.cel = cel;
-      user.password = password;
     } catch (e) {
       return res.status(404).json({ message: 'Usuario no encontrado' });
     }
@@ -123,7 +122,7 @@ export class UserController {
 
     // Remove user
     userRepository.delete(idUser);
-    res.status(201).json({ message: ' Usuario eliminado' });
+    res.status(201).json({ message: 'Usuario eliminado' });
   };
 }
 
