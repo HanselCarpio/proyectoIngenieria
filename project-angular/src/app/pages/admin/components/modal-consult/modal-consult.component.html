@@ -90,6 +90,7 @@
 
         <mat-form-field class="full-width-input">
           <input formControlName="idClasificador"
+            type="number"
             matInput placeholder="ID clasificador"
             required
           />
@@ -98,49 +99,26 @@
           </div>
         </mat-form-field>
 
-        <!-- <mat-form-field class="full-width-input">
-          <input formControlName="idDepto"
-            matInput placeholder="IdDepto"
+        <!-- NUEVOOOO -->
+
+        <mat-form-field class="full-width-input">
+          <input formControlName="detalle"
+            matInput placeholder="Detalle del archivo"
             required
           />
-          <div mat-error *ngIf="checkField('idDepto')">
+          <div mat-error *ngIf="checkField('detalle')">
             {{ consultForm.errorMessage }}
           </div>
-        </mat-form-field> -->
-
-        <!-- <mat-form-field class="full-width-input">
-          <input formControlName="correo"
-            matInput placeholder="Correo"
-            required
-          />
-          <div mat-error *ngIf="checkField('correo')">
-            {{ consultForm.errorMessage }}
-          </div>
-        </mat-form-field> -->
-
-        <!-- <mat-form-field class="full-width-input">
-          <input formControlName="cel"
-            matInput placeholder="Celular"
-            required
-          />
-          <div mat-error *ngIf="checkField('cel')">
-            {{ consultForm.errorMessage }}
-          </div>
-        </mat-form-field> -->
-
-        <!-- <mat-form-field class="full-width-input" *ngIf="showPasswordField">
-          <input formControlName="password"
-            [type]="hide ? 'password' : 'text'"
-            matInput placeholder="Password"
-            required
-          />
-          <button mat-icon-button matSuffix (click)="hide = !hide">
-            <mat-icon>{{hide ? "visibility_off": "visibility" }}</mat-icon>
-          </button>
-          <mat-error *ngIf="checkField('password')">
-            {{ consultForm.errorMessage }}
-          </mat-error>
-        </mat-form-field> -->
+        </mat-form-field>
+        
+        <input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload>
+        <div class="file-upload">
+          {{ fileName || "No file uploaded yet."}}
+            <button mat-mini-fab color="primary" class="upload-btn"
+              (click)="fileUpload.click()">
+                <mat-icon>attach_file</mat-icon>
+            </button>
+        </div>
         
       </form>
     </div>

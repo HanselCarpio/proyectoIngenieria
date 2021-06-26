@@ -14,11 +14,11 @@ export class BaseFormUser {
     lastname: ['', [Validators.required]],
     role: ['', [Validators.required]],
     gender: ['', [Validators.required]],
-    cedula: ['', [Validators.required]],
+    cedula: ['', [Validators.required], Validators.minLength(8)],
     birthday: ['', [Validators.required]],
     idDepto: ['', [Validators.required]],
     correo: ['',[Validators.required, Validators.pattern(this.isValidEmail)]],
-    cel: ['', [Validators.required]],
+    cel: ['', [Validators.required], Validators.minLength(6)],
     password: ['', [Validators.required, Validators.minLength(5)]],
   });
 

@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
@@ -20,10 +21,12 @@ export class ModalConsultComponent implements OnInit {
   actionTODO = Action.NEW;
   showPasswordField = true;
   hide = true;
+  fileName = '';
   constructor(
   @Inject(MAT_DIALOG_DATA) public data: any,
   public consultForm: BaseFormConsult,
-    private consultSvc: ConsultsService
+  private consultSvc: ConsultsService,
+  private http: HttpClient
   ) { }
 
   ngOnInit(): void {
@@ -35,6 +38,17 @@ export class ModalConsultComponent implements OnInit {
       // this.data.title = 'Edit user';
       // this.pathFormData();
     // }
+  }
+
+  onFileSelected(event:any) {
+    const file:File = event.target.files[0];
+    if (file) {
+        this.fileName = file.name;
+        const formData = new FormData();
+        formData.append("thumbnail", file);
+        const upload$ = this.http.post("/api/thumbnail-upload", formData);
+        upload$.subscribe();
+    }
   }
 
   onSaveConsult(): void {
