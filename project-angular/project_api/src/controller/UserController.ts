@@ -6,7 +6,7 @@ import { validate } from 'class-validator';
 
 
 export class UserController {
-  static getAll = async (req: Request, res: Response) => {
+  static getAllUser = async (req: Request, res: Response) => {
     const userRepository = getRepository(Users);
     let users;
 
@@ -24,8 +24,9 @@ export class UserController {
       res.status(404).json({ message: 'sin resultados' });
     }
   };
+  
 
-  static getById = async (req: Request, res: Response) => {
+  static getUserById = async (req: Request, res: Response) => {
     const { idUser } = req.params;
     const userRepository = getRepository(Users);
     try {
@@ -36,7 +37,7 @@ export class UserController {
     }
   };
 
-  static new = async (req: Request, res: Response) => {
+  static newUser = async (req: Request, res: Response) => {
     const { name, lastname, role, gender, cedula, birthday, idDepto, correo, cel, password} = req.body;
     const user = new Users;
 
@@ -71,15 +72,15 @@ export class UserController {
     res.send('Usuario creado');
   };
 
-  static edit = async (req: Request, res: Response) => {
+  static editUser = async (req: Request, res: Response) => {
     let user;
-    const { id } = req.params;
+    const { idUser } = req.params;
     const { name, lastname, role, gender, cedula, birthday, idDepto, correo, cel } = req.body;
 
     const userRepository = getRepository(Users);
     // Try get user
     try {
-      user = await userRepository.findOneOrFail(id);
+      user = await userRepository.findOneOrFail(idUser);
       user.name = name;
       user.lastname = lastname;
       user.role = role;
@@ -109,7 +110,7 @@ export class UserController {
     res.status(201).json({ message: 'Usuario actualizado' });
   };
 
-  static delete = async (req: Request, res: Response) => {
+  static deleteUser = async (req: Request, res: Response) => {
     const { idUser } = req.params;
     const userRepository = getRepository(Users);
     let user: Users;

@@ -1,0 +1,161 @@
+<h2 mat-dialog-title>{{data?.title}}</h2>
+
+<mat-dialog-content>
+    <div class="modal-form">
+      <form [formGroup]="consultForm.baseForm">
+      <!-- formulario -->
+        <!-- <mat-form-field class="full-width-input">
+            <input formControlName="fechaHora"
+            matInput placeholder="Fecha y Hora"
+            required
+            />
+            <div mat-error *ngIf="checkField('fechaHora')">
+            {{ consultForm.errorMessage }}
+            </div>
+        </mat-form-field> -->
+
+
+        <mat-form-field class="full-width-input">
+          <input formControlName="idUser"
+          type="number"
+            matInput placeholder="user ID"
+            required
+          />
+          <div mat-error *ngIf="checkField('idUser')">
+            {{ consultForm.errorMessage }}
+          </div>
+        </mat-form-field>
+
+        <mat-form-field class="full-width-input">
+          <input formControlName="palabraClaveConsulta1"
+            matInput placeholder="Palabra clave"
+            required
+          />
+          <div mat-error *ngIf="checkField('palabraClaveConsulta1')">
+            {{ consultForm.errorMessage }}
+          </div>
+        </mat-form-field>
+
+        <mat-form-field class="full-width-input">
+            <input formControlName="palabraClaveConsulta2"
+              matInput placeholder="Otra palabra clave"
+              required
+            />
+            <div mat-error *ngIf="checkField('palabraClaveConsulta2')">
+              {{ consultForm.errorMessage }}
+            </div>
+          </mat-form-field>
+
+        <!-- <mat-form-field class="full-width-input">
+          <mat-label> Select </mat-label>
+          <mat-select formControlName="role">
+            <mat-option value="suscriptor">Suscriptor</mat-option>
+            <mat-option value="admin">Admin</mat-option>
+          </mat-select>
+          <div mat-error *ngIf="checkField('role')">
+            {{ consultForm.errorMessage }}
+          </div>
+        </mat-form-field> -->
+
+        <mat-form-field class="full-width-input">
+          <input formControlName="asuntoDetallado"
+            matInput placeholder="Asunto detallado"
+            required
+          />
+          <div mat-error *ngIf="checkField('asuntoDetallado')">
+            {{ consultForm.errorMessage }}
+          </div>
+        </mat-form-field>
+
+        <!-- <mat-form-field class="full-width-input">
+            <input formControlName="ipCompu"
+              matInput placeholder="IP Computadora"
+              required
+            />
+            <div mat-error *ngIf="checkField('ipCompu')">
+              {{ consultForm.errorMessage }}
+            </div>
+          </mat-form-field> -->
+
+        <mat-form-field class="full-width-input">
+          <input formControlName="cantidadCambios"
+          type="number"
+            matInput placeholder="Cantidad de cambios"
+            required
+          />
+          <div mat-error *ngIf="checkField('cantidadCambios')">
+            {{ consultForm.errorMessage }}
+          </div>
+        </mat-form-field>
+
+        <mat-form-field class="full-width-input">
+          <input formControlName="idClasificador"
+            matInput placeholder="ID clasificador"
+            required
+          />
+          <div mat-error *ngIf="checkField('idClasificador')">
+            {{ consultForm.errorMessage }}
+          </div>
+        </mat-form-field>
+
+        <!-- <mat-form-field class="full-width-input">
+          <input formControlName="idDepto"
+            matInput placeholder="IdDepto"
+            required
+          />
+          <div mat-error *ngIf="checkField('idDepto')">
+            {{ consultForm.errorMessage }}
+          </div>
+        </mat-form-field> -->
+
+        <!-- <mat-form-field class="full-width-input">
+          <input formControlName="correo"
+            matInput placeholder="Correo"
+            required
+          />
+          <div mat-error *ngIf="checkField('correo')">
+            {{ consultForm.errorMessage }}
+          </div>
+        </mat-form-field> -->
+
+        <!-- <mat-form-field class="full-width-input">
+          <input formControlName="cel"
+            matInput placeholder="Celular"
+            required
+          />
+          <div mat-error *ngIf="checkField('cel')">
+            {{ consultForm.errorMessage }}
+          </div>
+        </mat-form-field> -->
+
+        <!-- <mat-form-field class="full-width-input" *ngIf="showPasswordField">
+          <input formControlName="password"
+            [type]="hide ? 'password' : 'text'"
+            matInput placeholder="Password"
+            required
+          />
+          <button mat-icon-button matSuffix (click)="hide = !hide">
+            <mat-icon>{{hide ? "visibility_off": "visibility" }}</mat-icon>
+          </button>
+          <mat-error *ngIf="checkField('password')">
+            {{ consultForm.errorMessage }}
+          </mat-error>
+        </mat-form-field> -->
+        
+      </form>
+    </div>
+</mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Cancel</button>
+    <button
+      mat-raised-button
+      [mat-dialog-close]="true"
+      color="primary"
+      (click)="onSaveConsult()"
+      ckdFocusInitial
+      [disabled]="!consultForm.baseForm.valid"
+    >
+      Save
+    </button>
+  </mat-dialog-actions>
+  

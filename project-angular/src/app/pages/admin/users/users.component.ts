@@ -44,9 +44,9 @@ export class UsersComponent implements OnInit, AfterViewInit, OnDestroy {
         .subscribe((res) => {
           window.alert(res);
           // Update result after deleting the user.
-          // this.userSvc.getAllUsers().subscribe((users) => {
-          //   this.dataSource.data = users;
-          // });
+          this.userSvc.getAllUsers().subscribe((users) => {
+            this.dataSource.data = users;
+          });
         });
     }
   }

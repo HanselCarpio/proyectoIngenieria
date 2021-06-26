@@ -5,32 +5,6 @@ import * as bcrypt from 'bcryptjs';
 @Entity()
 @Unique(['correo'])
 export class Users {
-  // @PrimaryGeneratedColumn()
-  // id: number;
-
-  // @Column()
-  // @MinLength(6)
-  // @MaxLength(50)
-  // @IsEmail()
-  // @IsNotEmpty()
-  // username: string;
-
-  // @Column()
-  // @MinLength(6)
-  // @MaxLength(100)
-  // @IsNotEmpty()
-  // password: string;
-
-  // @Column()
-  // @IsNotEmpty()
-  // @MaxLength(10)
-  // role: string;
-
-  // @Column() 
-  // @IsOptional()
-  // @IsNotEmpty()
-  // resetToken?: string; 
-
 
   @PrimaryGeneratedColumn()
   idUser: number;
