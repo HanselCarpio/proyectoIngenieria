@@ -4,6 +4,8 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { BaseFormUser } from '@shared/utils/base-form-user';
 import { AuthService } from '@auth/auth.service';
 import { Subscription } from 'rxjs';
+import { BaseFormSession } from '@app/shared/utils/base-form-session';
+import { SessionService } from '@app/pages/admin/services/session.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -21,28 +23,30 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   constructor(
     private authSvc: AuthService,
+    private seSvc: SessionService,
     private router: Router,
     public loginForm: BaseFormUser,
+    public loginFormSession: BaseFormSession,
     // private fb: FormBuilder
   ) {}
 
   ngOnInit(): void {
-    this.loginForm.baseForm.get('name')?.setValidators(null);
-    this.loginForm.baseForm.get('name')?.updateValueAndValidity();
-    this.loginForm.baseForm.get('lastname')?.setValidators(null);
-    this.loginForm.baseForm.get('lastname')?.updateValueAndValidity();
-    this.loginForm.baseForm.get('role')?.setValidators(null);
-    this.loginForm.baseForm.get('role')?.updateValueAndValidity();
-    this.loginForm.baseForm.get('gender')?.setValidators(null);
-    this.loginForm.baseForm.get('gender')?.updateValueAndValidity();
-    this.loginForm.baseForm.get('cedula')?.setValidators(null);
-    this.loginForm.baseForm.get('cedula')?.updateValueAndValidity();
-    this.loginForm.baseForm.get('birthday')?.setValidators(null);
-    this.loginForm.baseForm.get('birthday')?.updateValueAndValidity();
-    this.loginForm.baseForm.get('idDepto')?.setValidators(null);
-    this.loginForm.baseForm.get('idDepto')?.updateValueAndValidity();
-    this.loginForm.baseForm.get('cel')?.setValidators(null);
-    this.loginForm.baseForm.get('cel')?.updateValueAndValidity();
+    this.loginForm.baseFormUser.get('name')?.setValidators(null);
+    this.loginForm.baseFormUser.get('name')?.updateValueAndValidity();
+    this.loginForm.baseFormUser.get('lastname')?.setValidators(null);
+    this.loginForm.baseFormUser.get('lastname')?.updateValueAndValidity();
+    this.loginForm.baseFormUser.get('role')?.setValidators(null);
+    this.loginForm.baseFormUser.get('role')?.updateValueAndValidity();
+    this.loginForm.baseFormUser.get('gender')?.setValidators(null);
+    this.loginForm.baseFormUser.get('gender')?.updateValueAndValidity();
+    this.loginForm.baseFormUser.get('cedula')?.setValidators(null);
+    this.loginForm.baseFormUser.get('cedula')?.updateValueAndValidity();
+    this.loginForm.baseFormUser.get('birthday')?.setValidators(null);
+    this.loginForm.baseFormUser.get('birthday')?.updateValueAndValidity();
+    this.loginForm.baseFormUser.get('idDepto')?.setValidators(null);
+    this.loginForm.baseFormUser.get('idDepto')?.updateValueAndValidity();
+    this.loginForm.baseFormUser.get('cel')?.setValidators(null);
+    this.loginForm.baseFormUser.get('cel')?.updateValueAndValidity();
   }
 
   ngOnDestroy(): void {
@@ -51,11 +55,25 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   onLogin(): void {
-    if (this.loginForm.baseForm.invalid) {
+    if (this.loginForm.baseFormUser.invalid) {
       return;
     }
-    const formValue = this.loginForm.baseForm.value;
+    const formValue = this.loginForm.baseFormUser.value;
     this.subscription.add(this.authSvc.login(formValue).subscribe((res) => {
+      if (res) {
+        // const formValueSession = this.loginFormSession.baseFormSession.value;
+        // this.subscription.add(this.seSvc.newSession(formValueSession).subscribe((res) => {
+        // if (res) {
+        //   this.router.navigate(['']);
+        // }
+        // })
+        // )
+        this.router.navigate(['']);
+      }
+    })
+    )
+    const formValueSession = this.loginFormSession.baseFormSession.value;
+    this.subscription.add(this.seSvc.newSession(formValueSession).subscribe((res) => {
       if (res) {
         this.router.navigate(['']);
       }

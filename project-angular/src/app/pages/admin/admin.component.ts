@@ -4,6 +4,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { ModalAnswerComponent } from './components/modal-answer/modal-answer.component';
 import { ModalConsultComponent } from './components/modal-consult/modal-consult.component';
 import { ConsultsService } from './services/consults.service';
 
@@ -16,7 +17,7 @@ import { ConsultsService } from './services/consults.service';
 export class AdminComponent implements OnInit, AfterViewInit, OnDestroy{
 
   displayedColumns: string[] = ['idBoleta', 'fechaHora', 'idUser', 'palabraClaveConsulta1', 'palabraClaveConsulta2', 
-  'asuntoDetallado', 'ipCompu', 'cantidadCambios', 'idClasificador'];
+  'asuntoDetallado', 'ipCompu', 'cantidadCambios', 'idClasificador', 'actions'];
   dataSource = new MatTableDataSource();
 
   private destroy$= new Subject<any>();
@@ -71,6 +72,16 @@ export class AdminComponent implements OnInit, AfterViewInit, OnDestroy{
       width: '800px',
       hasBackdrop: false,
       data: {title: 'New consult', consult},
+    });
+  }
+
+  onOpenModalAnswer(consult: any): void {
+    console.log('consult ->', consult);
+    this.dialog.open(ModalAnswerComponent,{
+      height: '400px',
+      width: '800px',
+      hasBackdrop: false,
+      data: {title: 'New Answer', consult},
     });
   }
 

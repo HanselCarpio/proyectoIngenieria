@@ -8,13 +8,15 @@ import { MaterialModule } from '@app/material.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ModalConsultComponent } from './components/modal-consult/modal-consult.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { ModalAnswerComponent } from './components/modal-answer/modal-answer.component';
 
 
 @NgModule({
   declarations: [
     AdminComponent,
     ModalComponent,
-    ModalConsultComponent
+    ModalConsultComponent,
+    ModalAnswerComponent
   ],
   imports: [
     CommonModule,

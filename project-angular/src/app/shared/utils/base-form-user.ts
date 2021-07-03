@@ -9,26 +9,27 @@ export class BaseFormUser {
 
   constructor(private fb: FormBuilder) {}
 
-  baseForm = this.fb.group({
+  baseFormUser = this.fb.group({
     name: ['', [Validators.required]],
     lastname: ['', [Validators.required]],
     role: ['', [Validators.required]],
     gender: ['', [Validators.required]],
-    cedula: ['', [Validators.required], Validators.minLength(8)],
+    cedula: ['', [Validators.required]],
     birthday: ['', [Validators.required]],
     idDepto: ['', [Validators.required]],
     correo: ['',[Validators.required, Validators.pattern(this.isValidEmail)]],
-    cel: ['', [Validators.required], Validators.minLength(6)],
+    cel: ['', [Validators.required]],
     password: ['', [Validators.required, Validators.minLength(5)]],
   });
 
   isValidField(field: string): boolean{
     this.getErrorMessage(field);
     return(
-      (this.baseForm.get(field)?.touched || this.baseForm.get(field)?.dirty) && 
-      !this.baseForm.get(field)?.valid
+      (this.baseFormUser.get(field)?.touched || this.baseFormUser.get(field)?.dirty) && 
+      !this.baseFormUser.get(field)?.valid
     )!;
   }
+
 
 //   isValidField(field: string): boolean {
 //     this.getErrorMessage(field);
@@ -55,12 +56,12 @@ export class BaseFormUser {
 
   private getErrorMessage(field:string): string{
     let message = "" || '';
-    if(this.baseForm.get(field)?.errors?.required){
+    if(this.baseFormUser.get(field)?.errors?.required){
       message = 'you must enter a value';
-    }else if(this.baseForm.get(field)?.hasError('pattern')){
+    }else if(this.baseFormUser.get(field)?.hasError('pattern')){
       message = 'Not a valid email';
-    }else if(this.baseForm.get(field)?.hasError('minlength')){
-      const minLength = this.baseForm.get(field)?.errors?.minlength.requiredLength;
+    }else if(this.baseFormUser.get(field)?.hasError('minlength')){
+      const minLength = this.baseFormUser.get(field)?.errors?.minlength.requiredLength;
       message = `this field must be longer than ${minLength} characters`;
     }
     return this.errorMessage = message;

@@ -1,0 +1,72 @@
+<h2 mat-dialog-title>{{data?.title}}</h2>
+
+<mat-dialog-content>
+    <div class="modal-form">
+      <form [formGroup]="answerForm.baseFormAnswer">
+
+        
+
+        <mat-form-field class="full-width-input">
+          <input formControlName="descripcion"
+            matInput placeholder="Descripcion"
+            required
+          />
+          <div mat-error *ngIf="checkField('descripcion')">
+            {{ consultForm.errorMessage }}
+          </div>
+        </mat-form-field>
+
+        <mat-form-field class="full-width-input">
+            <input formControlName="detalleRespuesta"
+              matInput placeholder="Detalle de Respuesta"
+              required
+            />
+            <div mat-error *ngIf="checkField('detalleRespuesta')">
+              {{ consultForm.errorMessage }}
+            </div>
+          </mat-form-field>
+
+
+          <mat-form-field class="full-width-input">
+            <input formControlName="idUserRespuesta"
+            type="number"
+              matInput placeholder="user ID Respuesta"
+              required
+            />
+            <div mat-error *ngIf="checkField('idUserRespuesta')">
+              {{ consultForm.errorMessage }}
+            </div>
+          </mat-form-field>
+
+
+        <mat-form-field class="full-width-input">
+          <input formControlName="idBoleta"
+          type="number"
+            matInput placeholder="idBoleta"
+            required
+          />
+          <div mat-error *ngIf="checkField('idBoleta')">
+            {{ consultForm.errorMessage }}
+          </div>
+        </mat-form-field>
+
+        
+      </form>
+        
+      
+    </div>
+</mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Cancel</button>
+    <button
+      mat-raised-button
+      [mat-dialog-close]="true"
+      color="primary"
+      (click)="onSaveAnswer()"
+      ckdFocusInitial
+      [disabled]="!answerForm.baseFormAnswer.valid"
+    >
+      Save
+    </button>
+  </mat-dialog-actions>
+  

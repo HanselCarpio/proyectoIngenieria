@@ -34,7 +34,7 @@ class AuthController {
     }, config.jwtSecret, { expiresIn: '1h' });
 
 
-    res.json({ message: 'OK', token, userId: user.idUser, name: user.name, lastname: user.lastname, role: user.role });
+    res.json({ message: 'OK', token, name: user.name, lastname: user.lastname, role: user.role, correo: user.correo });
   };
 
   static changePassword = async (req: Request, res: Response) => {

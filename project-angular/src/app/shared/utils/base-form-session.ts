@@ -1,43 +1,40 @@
 import { FormBuilder, Validators } from '@angular/forms';
 import { Injectable } from '@angular/core';
-import { HttpClient  } from '@angular/common/http';
+import { stringify } from '@angular/compiler/src/util';
 
 @Injectable({ providedIn: 'root' })
-export class BaseFormConsult {
-  // private isValidEmail = /\S+@\S+\.\S+/;
+export class BaseFormSession {
+  [x: string]: any;
+  private isValidEmail = /\S+@\S+\.\S+/;
   errorMessage = '';
   date: Date = new Date();
-  ipAddress = '';
+  s = JSON.parse(localStorage.getItem('user')!);
 
-  constructor(private fb: FormBuilder, private http:HttpClient) {}
 
-  baseForm = this.fb.group({
-    fechaHora: [this.date],
-    idUser: ['', [Validators.required]],
-    palabraClaveConsulta1: ['', [Validators.required]],
-    palabraClaveConsulta2: ['', [Validators.required]],
-    asuntoDetallado: ['', [Validators.required]],
-    ipCompu: ['190.113.102.144', [Validators.required]],
-    cantidadCambios: ['', [Validators.required]],
-    idClasificador: ['',[Validators.required]],
+  constructor(private fb: FormBuilder) {}  
+
+  baseFormSession = this.fb.group({
+    ipCompu: ['190.113.102.144'],
+    correoUser: ['admin@gmail.com'],
+    fechaHoraConex: [this.date],
   });
 
   isValidField(field: string): boolean{
     this.getErrorMessage(field);
     return(
-      (this.baseForm.get(field)?.touched || this.baseForm.get(field)?.dirty) && 
-      !this.baseForm.get(field)?.valid
+      (this.baseFormSession.get(field)?.touched || this.baseFormSession.get(field)?.dirty) && 
+      !this.baseFormSession.get(field)?.valid
     )!;
   }
 
   
 
-  getIPAddress(){
-    this.http.get("http://api.ipify.org/?format=json").subscribe((res:any)=>{
-      this.ipAddress = res.ip;
-      console.log('ip ->', this.ipAddress);
-    });
-  }
+  
+
+//  getValueCorreo(field:string): string{  
+//     let correoUser: string;  
+//     return correoUser = field;
+//   }
 
 //   isValidField(field: string): boolean {
 //     this.getErrorMessage(field);
@@ -64,12 +61,12 @@ export class BaseFormConsult {
 
   private getErrorMessage(field:string): string{
     let message = "" || '';
-    if(this.baseForm.get(field)?.errors?.required){
+    if(this.baseFormSession.get(field)?.errors?.required){
       message = 'you must enter a value';
-    }else if(this.baseForm.get(field)?.hasError('pattern')){
+    }else if(this.baseFormSession.get(field)?.hasError('pattern')){
       message = 'Not a valid email';
-    }else if(this.baseForm.get(field)?.hasError('minlength')){
-      const minLength = this.baseForm.get(field)?.errors?.minlength.requiredLength;
+    }else if(this.baseFormSession.get(field)?.hasError('minlength')){
+      const minLength = this.baseFormSession.get(field)?.errors?.minlength.requiredLength;
       message = `this field must be longer than ${minLength} characters`;
     }
     return this.errorMessage = message;

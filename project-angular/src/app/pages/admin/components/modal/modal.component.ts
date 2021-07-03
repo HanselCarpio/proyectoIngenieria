@@ -27,24 +27,24 @@ export class ModalComponent implements OnInit {
     if (this.data?.user.hasOwnProperty('idUser')) {
       this.actionTODO = Action.EDIT;
       this.showPasswordField = false;
-      this.userForm.baseForm.get('password')?.setValidators(null);
-      this.userForm.baseForm.updateValueAndValidity();
+      this.userForm.baseFormUser.get('password')?.setValidators(null);
+      this.userForm.baseFormUser.updateValueAndValidity();
       this.data.title = 'Edit user';
       this.pathFormData();
     }
   }
 
   onSave(): void {
-    const formValue = this.userForm.baseForm.value;
-    console.log('user ->', formValue);
+    const formValueUser = this.userForm.baseFormUser.value;
+    console.log('user ->', formValueUser);
     if (this.actionTODO === Action.NEW) {
-      console.log(formValue);
-      this.userSvc.newUser(formValue).subscribe((res) => {
+      console.log(formValueUser);
+      this.userSvc.newUser(formValueUser).subscribe((res) => {
         console.log('New ', res);
       });
     } else {
       const userId = this.data?.user?.idUser;
-      this.userSvc.updateUser(userId, formValue).subscribe((res) => {
+      this.userSvc.updateUser(userId, formValueUser).subscribe((res) => {
         console.log('Update', res);
       });
     }
@@ -55,7 +55,7 @@ export class ModalComponent implements OnInit {
   }
 
   private pathFormData(): void {
-    this.userForm.baseForm.patchValue({
+    this.userForm.baseFormUser.patchValue({
       name: this.data?.user?.name,
       lastname: this.data?.user?.lastname,
       role: this.data?.user?.role,

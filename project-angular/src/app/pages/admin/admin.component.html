@@ -74,18 +74,16 @@
         <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
       </ng-container>-->
   
-      <!-- <ng-container matColumnDef="actions">
+      <ng-container matColumnDef="actions">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Actions </th>
         <td mat-cell *matCellDef="let element">
           <div class="table-button-row">
-            <button mat-flat-button color="accent" (click)="onOpenModal(element)" >
-              Edit
+            <button mat-flat-button color="accent" (click)="onOpenModalAnswer(element)" >
+              Answer
             </button>
-            <button mat-flat-button color="warn" (click)="onDelete(element.idUser)">
-              Delete</button>
           </div>
         </td>
-      </ng-container> -->
+      </ng-container>
     
       <tr center mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr center mat-row *matRowDef="let row; columns: displayedColumns;"></tr>

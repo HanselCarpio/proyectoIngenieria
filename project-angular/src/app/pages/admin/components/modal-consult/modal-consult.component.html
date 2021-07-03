@@ -3,17 +3,6 @@
 <mat-dialog-content>
     <div class="modal-form">
       <form [formGroup]="consultForm.baseForm">
-      <!-- formulario -->
-        <!-- <mat-form-field class="full-width-input">
-            <input formControlName="fechaHora"
-            matInput placeholder="Fecha y Hora"
-            required
-            />
-            <div mat-error *ngIf="checkField('fechaHora')">
-            {{ consultForm.errorMessage }}
-            </div>
-        </mat-form-field> -->
-
 
         <mat-form-field class="full-width-input">
           <input formControlName="idUser"
@@ -46,16 +35,6 @@
             </div>
           </mat-form-field>
 
-        <!-- <mat-form-field class="full-width-input">
-          <mat-label> Select </mat-label>
-          <mat-select formControlName="role">
-            <mat-option value="suscriptor">Suscriptor</mat-option>
-            <mat-option value="admin">Admin</mat-option>
-          </mat-select>
-          <div mat-error *ngIf="checkField('role')">
-            {{ consultForm.errorMessage }}
-          </div>
-        </mat-form-field> -->
 
         <mat-form-field class="full-width-input">
           <input formControlName="asuntoDetallado"
@@ -66,16 +45,6 @@
             {{ consultForm.errorMessage }}
           </div>
         </mat-form-field>
-
-        <!-- <mat-form-field class="full-width-input">
-            <input formControlName="ipCompu"
-              matInput placeholder="IP Computadora"
-              required
-            />
-            <div mat-error *ngIf="checkField('ipCompu')">
-              {{ consultForm.errorMessage }}
-            </div>
-          </mat-form-field> -->
 
         <mat-form-field class="full-width-input">
           <input formControlName="cantidadCambios"
@@ -98,8 +67,29 @@
             {{ consultForm.errorMessage }}
           </div>
         </mat-form-field>
+      </form>
 
         <!-- NUEVOOOO -->
+        <form [formGroup]="detailsForm.baseFormDetails">
+
+        <mat-form-field class="full-width-input">
+          <input formControlName="linea"
+            matInput placeholder="Linea"
+            required
+          />
+          <div mat-error *ngIf="checkField('linea')">
+            {{ consultForm.errorMessage }}
+          </div>
+        </mat-form-field>
+        
+        <input formControlName="evidenciaArchivo" type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload>
+        <div class="file-upload">
+          {{ fileName || "No file uploaded yet."}}
+            <button mat-mini-fab color="primary" class="upload-btn"
+              (click)="fileUpload.click()">
+                <mat-icon>attach_file</mat-icon>
+            </button>
+        </div>
 
         <mat-form-field class="full-width-input">
           <input formControlName="detalle"
@@ -110,17 +100,10 @@
             {{ consultForm.errorMessage }}
           </div>
         </mat-form-field>
-        
-        <input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload>
-        <div class="file-upload">
-          {{ fileName || "No file uploaded yet."}}
-            <button mat-mini-fab color="primary" class="upload-btn"
-              (click)="fileUpload.click()">
-                <mat-icon>attach_file</mat-icon>
-            </button>
-        </div>
-        
+
       </form>
+        
+      
     </div>
 </mat-dialog-content>
   <mat-dialog-actions align="end">

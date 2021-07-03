@@ -2,7 +2,7 @@
 
 <mat-dialog-content>
     <div class="modal-form">
-      <form [formGroup]="userForm.baseForm">
+      <form [formGroup]="userForm.baseFormUser">
       <!-- formulario -->
         <mat-form-field class="full-width-input">
           <input formControlName="name"
@@ -133,7 +133,7 @@
       color="primary"
       (click)="onSave()"
       ckdFocusInitial
-      [disabled]="!userForm.baseForm.valid"
+      [disabled]="!userForm.baseFormUser.valid"
     >
       Save
     </button>
