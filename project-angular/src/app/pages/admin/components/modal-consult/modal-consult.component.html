@@ -57,12 +57,15 @@
           </div>
         </mat-form-field>
 
+
         <mat-form-field class="full-width-input">
-          <input formControlName="idClasificador"
-            type="number"
-            matInput placeholder="ID clasificador"
-            required
-          />
+          <mat-label> Select Clasific.</mat-label>
+          <mat-select formControlName="idClasificador">
+            <mat-option value="1">Consultas Generales</mat-option>
+            <mat-option value="2">Proyectos de ley</mat-option>
+            <mat-option value="3">Contratos administrativos</mat-option>
+            <mat-option value="4">Contrato personal</mat-option>
+          </mat-select>
           <div mat-error *ngIf="checkField('idClasificador')">
             {{ consultForm.errorMessage }}
           </div>
