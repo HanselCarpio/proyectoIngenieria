@@ -3,30 +3,22 @@ import { Injectable } from '@angular/core';
 import { stringify } from '@angular/compiler/src/util';
 
 @Injectable({ providedIn: 'root' })
-export class BaseFormUser {
+export class BaseFormLogin {
   private isValidEmail = /\S+@\S+\.\S+/;
   errorMessage = '';
 
   constructor(private fb: FormBuilder) {}
 
-  baseFormUser = this.fb.group({
-    name: ['', [Validators.required]],
-    lastname: ['', [Validators.required]],
-    role: ['', [Validators.required]],
-    gender: ['', [Validators.required]],
-    cedula: ['', [Validators.required]],
-    birthday: ['', [Validators.required]],
-    idDepto: ['', [Validators.required]],
+  baseFormLogin = this.fb.group({
     correo: ['',[Validators.required, Validators.pattern(this.isValidEmail)]],
-    cel: ['', [Validators.required]],
-    password: ['', [Validators.required, Validators.minLength(8)]],
+    password: ['', [Validators.required, Validators.minLength(5)]],
   });
 
   isValidField(field: string): boolean{
     this.getErrorMessage(field);
     return(
-      (this.baseFormUser.get(field)?.touched || this.baseFormUser.get(field)?.dirty) && 
-      !this.baseFormUser.get(field)?.valid
+      (this.baseFormLogin.get(field)?.touched || this.baseFormLogin.get(field)?.dirty) && 
+      !this.baseFormLogin.get(field)?.valid
     )!;
   }
 
@@ -56,12 +48,12 @@ export class BaseFormUser {
 
   private getErrorMessage(field:string): string{
     let message = "" || '';
-    if(this.baseFormUser.get(field)?.errors?.required){
+    if(this.baseFormLogin.get(field)?.errors?.required){
       message = 'you must enter a value';
-    }else if(this.baseFormUser.get(field)?.hasError('pattern')){
+    }else if(this.baseFormLogin.get(field)?.hasError('pattern')){
       message = 'Not a valid email';
-    }else if(this.baseFormUser.get(field)?.hasError('minlength')){
-      const minLength = this.baseFormUser.get(field)?.errors?.minlength.requiredLength;
+    }else if(this.baseFormLogin.get(field)?.hasError('minlength')){
+      const minLength = this.baseFormLogin.get(field)?.errors?.minlength.requiredLength;
       message = `this field must be longer than ${minLength} characters`;
     }
     return this.errorMessage = message;

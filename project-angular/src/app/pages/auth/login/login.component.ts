@@ -6,6 +6,7 @@ import { AuthService } from '@auth/auth.service';
 import { Subscription } from 'rxjs';
 import { BaseFormSession } from '@app/shared/utils/base-form-session';
 import { SessionService } from '@app/pages/admin/services/session.service';
+import { BaseFormLogin } from '@app/shared/utils/base-form-login';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -26,6 +27,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     private seSvc: SessionService,
     private router: Router,
     public loginForm: BaseFormUser,
+    public logForm: BaseFormLogin,
     public loginFormSession: BaseFormSession,
     // private fb: FormBuilder
   ) {}
@@ -55,11 +57,11 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   onLogin(): void {
-    if (this.loginForm.baseFormUser.invalid) {
+    if (this.logForm.baseFormLogin.invalid) {
       return;
     }
-    const formValue = this.loginForm.baseFormUser.value;
-    this.subscription.add(this.authSvc.login(formValue).subscribe((res) => {
+    const formValueLogin = this.logForm.baseFormLogin.value;
+    this.subscription.add(this.authSvc.login(formValueLogin).subscribe((res) => {
       if (res) {
         // const formValueSession = this.loginFormSession.baseFormSession.value;
         // this.subscription.add(this.seSvc.newSession(formValueSession).subscribe((res) => {
