@@ -2,11 +2,14 @@ import { AfterViewInit, Component, OnInit, ViewChild, OnDestroy, } from '@angula
 import { MatDialog } from '@angular/material/dialog';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { UserResponse } from '@app/shared/models/user.interface';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { AuthService } from '../auth/auth.service';
 import { ModalAnswerComponent } from './components/modal-answer/modal-answer.component';
 import { ModalConsultComponent } from './components/modal-consult/modal-consult.component';
 import { ConsultsService } from './services/consults.service';
+
 
 @Component({
   selector: 'app-admin',
@@ -15,6 +18,9 @@ import { ConsultsService } from './services/consults.service';
 })
   
 export class AdminComponent implements OnInit, AfterViewInit, OnDestroy{
+  isAdmin = "";
+  isLogged = false;
+
 
   displayedColumns: string[] = ['idBoleta', 'fechaHora', 'idUser', 'palabraClaveConsulta1', 'palabraClaveConsulta2', 
   'asuntoDetallado', 'ipCompu', 'cantidadCambios', 'idClasificador', 'actions'];
@@ -25,7 +31,7 @@ export class AdminComponent implements OnInit, AfterViewInit, OnDestroy{
   @ViewChild(MatSort)
   sort: MatSort = new MatSort;
 
-  constructor(private consultSvc:ConsultsService, private dialog:MatDialog) {}
+  constructor(private consultSvc:ConsultsService, private authSvc: AuthService, private dialog:MatDialog) {}
 
   ngAfterViewInit() {
     this.dataSource.sort = this.sort;
@@ -63,6 +69,12 @@ export class AdminComponent implements OnInit, AfterViewInit, OnDestroy{
     this.consultSvc.getAllConsults().subscribe((consults) => {
       this.dataSource.data = consults;
     });
+    this.authSvc.user$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((user: UserResponse) => {
+        this.isLogged = true;
+        this.isAdmin = (user?.role);
+      });
   }
 
   onOpenModalConsults(consult: any): void {
