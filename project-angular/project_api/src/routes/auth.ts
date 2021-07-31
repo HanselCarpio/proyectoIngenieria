@@ -6,14 +6,10 @@ const router = Router();
 
 // login
 router.post('/login', AuthController.login);
-//forgot password
-// router.put('/forgot-password', AuthController.forgotPassword);
-//create new password
-// router.put('/new-password', AuthController.createNewPassword);
-// Change password
-// router.post('/change-password', [checkJwt], AuthController.changePassword);
-// router.post('/change-password', AuthController.changePassword);
 
-//registro login
-// router.post('/session', AuthController.session);
+
+router.get('/anualResume', AuthController.getAnualResume);
+router.get('/totalConsultas', AuthController.getTotalConsultas);
+router.get('/resumenConsultas', AuthController.getResumenConsultas);
+router.get('/resumenContratos', AuthController.getResumenContratos);
 export default router;

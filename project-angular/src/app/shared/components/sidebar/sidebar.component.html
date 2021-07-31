@@ -1,17 +1,41 @@
 <mat-nav-list>
-    <a mat-list-item routerLink="/admin">
-      <mat-icon>note_add</mat-icon>
-      <span class="nav-link">Consults</span>
-    </a>
-  
-    <a mat-list-item routerLink="/admin/users">
-      <mat-icon>people</mat-icon>
-      <span class="nav-link">Users</span>
-    </a>
-  
-    <a mat-list-item (click)="onExit()">
-      <mat-icon>exit_to_app</mat-icon>
-      <span class="nav-link">Exit</span>
-    </a>
-  </mat-nav-list>
-  
+
+  <a mat-list-item routerLink="/admin/users">
+    <mat-icon>people</mat-icon>
+    <span class="nav-link">Users</span>
+  </a>
+
+  <a mat-list-item routerLink="/admin">
+    <mat-icon>note_add</mat-icon>
+    <span class="nav-link">Consults</span>
+  </a>
+
+  <a mat-list-item routerLink="/admin/answer">
+    <mat-icon>question_answer</mat-icon>
+    <span class="nav-link">Answers</span>
+  </a>
+
+  <a mat-list-item routerLink="/admin/report">
+    <mat-icon>flag</mat-icon>
+    <span class="nav-link">Anual Report</span>
+  </a>
+
+  <a mat-list-item routerLink="/admin/totalConsulta">
+    <mat-icon>summarize</mat-icon>
+    <span class="nav-link">Total Report</span>
+  </a>
+  <a mat-list-item routerLink="/admin/resumenConsulta">
+    <mat-icon>line_weight</mat-icon>
+    <span class="nav-link">Resume Report</span>
+  </a>
+
+  <a mat-list-item routerLink="/admin/resumenContrato">
+    <mat-icon>gavel</mat-icon>
+    <span class="nav-link">Contract Report</span>
+  </a>
+
+  <a mat-list-item (click)="onExit()">
+    <mat-icon>exit_to_app</mat-icon>
+    <span class="nav-link">Exit</span>
+  </a>
+</mat-nav-list>
